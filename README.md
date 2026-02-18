@@ -16,10 +16,17 @@ This project builds an end-to-end, research-oriented fraud detection pipeline fo
 The feature engineering notebook focuses on creating high‑signal tabular features before modeling. Key themes include:
 
 - **Time-based features**: transaction hour/day patterns and temporal aggregates.
+	- Examples: hour-of-day, day-of-week, weekend/holiday flags, and rolling window stats.
 - **Customer and card behavior**: rolling spend statistics, velocity features, and consistency checks.
+	- **Velocity** refers to frequency of transactions made e.g. `daily_transaction_count` and `weekly_transaction_count`, and by short gaps in `time_since_last_txn` (see `temporal_features_client`).
+	- **Burst behavior** refers to clusters of transactions in short time windows, reflected by low `time_since_last_txn` plus elevated daily/weekly counts.
+	- **Volatility** is measured via `amount_change_rate` and `amount_change`, with extreme shifts flagged by `large_amount_change` and `large_txn_time_diff_change` (see `calculate_event_features`).
 - **Merchant/MCC enrichment**: category-level behavior and outlier detection.
-- **Geospatial features**: distance between transaction locations (when available) to flag abnormal travel patterns.
-- **Anomaly signals**: isolation-based scores and rare-pattern indicators.
+	- Examples: per‑MCC spend baselines and merchant‑level rarity signals.
+- **Geospatial features**: distance between transaction locations to flag abnormal travel patterns.
+	- Not completed due to the large volume of geocoding API calls required, but the notebook includes the full workflow and rationale for this feature set.
+- **Anomaly signals**: isolation‑based scores and rare-pattern indicators.
+	- Examples: isolation forest scores and frequency‑based rarity flags assessed on an individual level and in combination with other features.
 
 See [Pre-processing/feature_engineering.ipynb](Pre-processing/feature_engineering.ipynb) for the full workflow and rationale.
 
