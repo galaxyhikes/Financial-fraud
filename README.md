@@ -31,7 +31,7 @@ The feature engineering notebook focuses on creating high‑signal tabular featu
 See [Pre-processing/feature_engineering.ipynb](Pre-processing/feature_engineering.ipynb) for the full workflow and rationale.
 
 ## Modeling approach (why these models and stacking)
-This project treats fraud detection as a tabular classification problem with strong non‑linearities and class imbalance. The predictive workflow is designed to compare complementary model families and then combine their strengths in a stacking ensemble.Class imbalance is handled with sampling strategies in the modeling notebooks (e.g., SMOTE over‑sampling and random under‑sampling) to improve recall on rare fraud cases. Key modeling choices include:
+This project treats fraud detection as a tabular classification problem with strong non‑linearities and class imbalance. The predictive workflow is designed to compare complementary model families and then combine their strengths in a stacking ensemble:
 
 - **XGBoost + CatBoost first**: Gradient-boosted trees are strong baselines for tabular data, and both models are trained to **compare performance** and decide the most effective baseline to carry forward. CatBoost is robust to categorical features and reduces target leakage with ordered boosting, while XGBoost provides flexible regularization and strong performance on mixed numeric/categorical encodings.
 - **TabNet next**: TabNet uses attentive feature selection at each decision step, which can improve performance and interpretability on high‑dimensional tabular data where interactions matter.
@@ -136,3 +136,5 @@ model = joblib.load("Predictive model/catboost_precision.joblib")
 
 ## Who maintains and contributes
 Maintained by contributors in the McGill-MMA-EnterpriseAnalytics organization.
+
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a pull request.
